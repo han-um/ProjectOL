@@ -100,16 +100,9 @@
 		<div class="container-login100">
             
 			<div class="login100-more" style="background-image: url('../dist/img/blurbackground.jpg');"></div>
-            
-            
+  
 			<div class="wrap-login100 p-l-90 p-r-90 p-t-100 p-b-50">
                 
-                <div class="col-lg-1 col-centered">
-            <a href="../main.jsp"><img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-           style="opacity: .8; width:200px; heigth:200px"></a>
-                    <h2 class="font-weight-light"> Open Lecture</h2>
-                    <hr><br>
-                                    </div>
                     <h2>Sign In</h2>
                 
             <!--실제 로그인 입력 폼-->

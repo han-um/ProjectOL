@@ -12,7 +12,6 @@
 <script>
 $(document).ready(function() {
       $('#btnSearch').click(function() {
-    	  alert('asdasd');
         var action = $('#frmSearch').attr("action");
             var form_data = {
                searchinput: $('#searchinput').val(),
@@ -42,15 +41,12 @@ $(document).ready(function() {
 });
 </script>
     <!-- SEARCH FORM -->
-    <form id="frmSearch" action="<%=request.getContextPath()%>/searchAction.jsp" method="post" class="form-inline ml-3 w-75">
+       <form id="frmSearch" action="<%=request.getContextPath()%>/searchAction.jsp" method="post" class="d-inline form-inline ml-3 w-75">
       <div class="input-group input-group w-100">
-        	<input  id="searchinput" v-on:click="show=!show"  class="form-control form-control-navbar " type="search" placeholder="어떤 것을 배우고 싶으신가요?" aria-label="Search">
-        <div class="input-group-append">
-         	<input type="button" id="btnSearch" class="btn btn-navbarl" value="검색">
-        </div>
+        	<input  id="searchinput" v-on:click="show=!show"  class="form-control form-control-navbar" type="search" placeholder="어떤 것을 배우고 싶으신가요?" aria-label="Search" style="width:70%;float:left">
+         	<input type="button" id="btnSearch" class="btn btn-navbar" value="Search" style="font-size:12px; color:white; float:right">
       </div>
     </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
