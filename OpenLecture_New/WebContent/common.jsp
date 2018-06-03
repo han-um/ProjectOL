@@ -18,5 +18,7 @@
   <script src="<%=request.getContextPath()%>/sweetalert/dist/sweetalert2.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
   <link rel="stylesheet" href="<%=request.getContextPath()%>/sweetalert/dist/sweetalert2.css">
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 </head>

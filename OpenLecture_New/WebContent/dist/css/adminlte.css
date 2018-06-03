@@ -482,6 +482,22 @@ mark,
   background-color: #fcf8e3;
 }
 
+.searchbox{
+    background-color: black!important;
+    margin-top:55px;
+    margin-left:74px;
+    padding-left:50px;
+    padding-top:40px;
+    height:700px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .list-unstyled, .chart-legend, .contacts-list, .users-list, .mailbox-attachments {
   padding-left: 0;
   list-style: none;

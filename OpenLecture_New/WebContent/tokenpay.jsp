@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- //////////// //////////// //////////// -->
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-<div class="wrapper">  
+<div class="wrapper" id="wrap">  
 
 <!-- //////////// header.jsp //////////// -->
  <%@include file="header.jsp"%>
@@ -316,31 +316,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
             </div>
             <!-- /.invoice -->
-              
-            <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-              <script>
-                var app5 = new Vue({
-                  el: '#app-5',
-                  data: {
-                      inpdata:0,
-                      PayType:0
-                  },
-                  methods: {
-                    price: function () {
-                      return this.inpdata*10
-                    },
-                    CreditCard: function () {
-                      this.PayType='CreditCard'
-                    },
-                    BitCoin: function () {
-                        this.PayType='BitCoin'
-                    },
-                    Cash: function () {
-                        this.PayType='Cash'
-                    }
-                  }
-                })
-              </script>
               
             <!-- /.card -->
             <!-- /.invoice -->

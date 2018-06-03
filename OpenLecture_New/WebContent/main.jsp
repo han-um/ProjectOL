@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- //////////// //////////// //////////// -->
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-<div class="wrapper">  
+<div class="wrapper" id="wrap">  
 
 <!-- //////////// header.jsp //////////// -->
  <%@include file="header.jsp"%>
@@ -248,7 +248,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 <!-- //////////// //////////// //////////// -->      
 <!-- //////////// sidebar-right.jsp //////////// -->  
 <%@include file="sidebar-right.jsp"%>    

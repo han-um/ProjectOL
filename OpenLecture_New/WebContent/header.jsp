@@ -8,15 +8,45 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
     </ul>
-
+ <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+<script>
+$(document).ready(function() {
+      $('#btnSearch').click(function() {
+    	  alert('asdasd');
+        var action = $('#frmSearch').attr("action");
+            var form_data = {
+               searchinput: $('#searchinput').val(),
+            };
+            $.ajax({
+                      type: "POST",
+                      url: action,
+                      data: form_data,
+                      success: function(response) {
+                          swal({
+                              type: 'error',
+                              title: 'Oops...',
+                              text: response.trim(),
+                              footer: '<a href>Why do I have this issue?</a>',
+                            })
+                      },
+                      error: function() {
+                          swal({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'AJAX Issue!',
+                                footer: '<a href>Why do I have this issue?</a>',
+                              })
+                      }
+            });
+      });
+});
+</script>
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3 w-75">
+    <form id="frmSearch" action="<%=request.getContextPath()%>/searchAction.jsp" method="post" class="form-inline ml-3 w-75">
       <div class="input-group input-group w-100">
-        <input class="form-control form-control-navbar " type="search" placeholder="어떤 것을 배우고 싶으신가요?" aria-label="Search">
-        <div class="input-group-append hide">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
+        	<input  id="searchinput" v-on:click="show=!show"  class="form-control form-control-navbar " type="search" placeholder="어떤 것을 배우고 싶으신가요?" aria-label="Search">
+        <div class="input-group-append">
+         	<input type="button" id="btnSearch" class="btn btn-navbarl" value="검색">
         </div>
       </div>
     </form>
@@ -113,3 +143,18 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+  
+    <transition name="fade">
+            <div v-if="show" class="card card-primary card-outline searchbox fixed-top">
+              <div class="card-header">
+                <h5 class="m-0">Search Result</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">Special title treatment</h6>
+
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="tokenpay.jsp" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+     </transition>       
+    

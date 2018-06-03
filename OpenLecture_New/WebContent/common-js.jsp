@@ -1,13 +1,9 @@
-
-<!-- REQUIRED SCRIPTS -->
-
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<%=request.getContextPath()%>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<%=request.getContextPath()%>/dist/js/adminlte.js"></script>
-
 <script>
 $(function(){
   $(window).scroll(function() {
