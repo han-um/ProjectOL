@@ -37,46 +37,87 @@
            <li class="nav-item">
            <%
            if((String)session.getAttribute("s_username")==null){
-        	   out.println("<a href='sign/index.jsp' class='nav-link'>");
+        	   out.println("<a href='sign/index.jsp' class='nav-link active'>");
                out.println("<i class='nav-icon fa fa-edit'></i>");
-               out.println("<p> SignIn/SignUp </p></a>");        	   
+               out.println("<p> 로그인 </p></a>");        	   
            }else{
-        	   out.println("<a href='logout.jsp' class='nav-link'>");
+        	   out.println("<a href='logout.jsp' class='nav-link active'>");
                out.println("<i class='fa fa-sign-out nav-icon'></i>");
-               out.println("<p> Logout </p></a>");
+               out.println("<p> 로그아웃 </p></a>");
            }
            %>
           </li>    
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-file"></i>
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-dashboard"></i>
               <p>
-                	메인 페이지
+                개인
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="tokenpay.jsp" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Token 충전</p>
+                <a href="#" class="nav-link">
+                  <i class="fa fa-info nav-icon"></i>
+                  <p>프로필 / 강의 관리</p>
                 </a>
+              </li>
               <li class="nav-item">
-                <a href="tokenpay.jsp" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Token 충전</p>
+                <a href="#" class="nav-link">
+                  <i class="fa fa-info-circle nav-icon"></i>
+                  <p>개인정보 수정</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/tokenpay.jsp" class="nav-link">
+                  <i class="fa fa-get-pocket nav-icon"></i>
+                  <p>TOKEN 충전</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-table"></i>
               <p>
-                Simple Link
+                강의
+                <i class="right fa fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-plus nav-icon"></i>
+                  <p>새 강의 만들기...</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/main.jsp" class="nav-link">
+                  <i class="fa fa-play-circle nav-icon"></i>
+                  <p>오늘의 강의</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-pie-chart nav-icon"></i>
+                  <p>강의 차트</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-random nav-icon"></i>
+                  <p>랜덤 강의 보기</p>
+                </a>
+              </li>
+            </ul>
           </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-th"></i>
+              <p>
+                어떻게 이용하나요?
+              </p>
+            </a>
           </li>
         </ul>
       </nav>
