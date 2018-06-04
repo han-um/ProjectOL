@@ -290,16 +290,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table">
                       <tr>
                         <th style="width:50%">소계:</th>
-                        <td>{{price()}}</td>
+                        <td>{{price()}}원</td>
                       </tr>
                       <tr>
                         <th>세금:</th>
-                        <td>00.00</td>
+                        <td>00.00원</td>
                       </tr>
                       <tr>
                       <tr>
                         <th>총계:</th>
-                          <td><h2>{{price()}}</h2></td>
+                          <td><h2>{{price()}}원</h2></td>
                       </tr>
                     </table>
                   </div>

@@ -11559,7 +11559,8 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 .callout a {
   color: #ffffff;
-  text-decoration: underline;
+    text-decoration:none
+
 }
 
 .callout a:hover {

@@ -140,16 +140,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   </nav>
     <transition name="fade">
-            <div v-if="show" class="card card-primary card-outline searchbox fixed-top">
-              <div class="card-header">
-                <h5 class="m-0">Search Result</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="tokenpay.jsp" class="btn btn-primary">Go somewhere</a>
-              </div>
+            <div v-if="show" class="card card-primary card-outline searchbox fixed-top float-right d-none d-sm-inline">
+            <h2>Search Result</h2><br>
+                
+<div class="card float-left d-none d-sm-inline" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text"> <span style="color:yellow"> 이 강의의 현재 가격 (토큰) : <i class='fa fa-get-pocket'></i>225</span><br>With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+                
+                <div class="card float-left d-none d-sm-inline" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+                
             </div>
      </transition>       
     

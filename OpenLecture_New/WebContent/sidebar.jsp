@@ -51,11 +51,16 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-file"></i>
               <p>
-                	오늘의 강의
+                	메인 페이지
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="tokenpay.jsp" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Token 충전</p>
+                </a>
               <li class="nav-item">
                 <a href="tokenpay.jsp" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>

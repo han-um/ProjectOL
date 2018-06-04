@@ -10,8 +10,9 @@
     </ul>
  <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
 <script>
+
 $(document).ready(function() {
-      $('#btnSearch').click(function() {
+		$("#searchinput").keypress(function(event) {
         var action = $('#frmSearch').attr("action");
             var form_data = {
                searchinput: $('#searchinput').val(),
@@ -21,12 +22,7 @@ $(document).ready(function() {
                       url: action,
                       data: form_data,
                       success: function(response) {
-                          swal({
-                              type: 'error',
-                              title: 'Oops...',
-                              text: response.trim(),
-                              footer: '<a href>Why do I have this issue?</a>',
-                            })
+                            $('#resultbox').html(response);
                       },
                       error: function() {
                           swal({
@@ -41,7 +37,7 @@ $(document).ready(function() {
 });
 </script>
     <!-- SEARCH FORM -->
-       <form id="frmSearch" action="<%=request.getContextPath()%>/searchAction.jsp" method="post" class="d-inline form-inline ml-3 w-75">
+       <form id="frmSearch" onsubmit="return false;" action="<%=request.getContextPath()%>/searchAction.jsp" method="post" class="d-inline form-inline ml-3 w-75">
       <div class="input-group input-group w-100">
         	<input  id="searchinput" v-on:click="show=!show"  class="form-control form-control-navbar" type="search" placeholder="어떤 것을 배우고 싶으신가요?" aria-label="Search" style="width:70%;float:left">
          	<input type="button" id="btnSearch" class="btn btn-navbar" value="Search" style="font-size:12px; color:white; float:right">
@@ -141,7 +137,7 @@ $(document).ready(function() {
   <!-- /.navbar -->
   
     <transition name="fade">
-            <div v-if="show" class="card card-primary card-outline searchbox fixed-top">
+            <div v-if="show" id="resultbox" class="card card-primary card-outline searchbox fixed-top float-right d-none d-sm-inline">
               <div class="card-header">
                 <h5 class="m-0">Search Result</h5>
               </div>

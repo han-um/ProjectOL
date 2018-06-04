@@ -22,6 +22,12 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 회원 로그인 메소드.
+	 * @param in_Username - 로그인할 회원 아이디, in_Password - 로그인할 회원 비밀번호
+	 * @return 1- 로그인 성공시, 0-비밀번호가 틀렸을 경우, -1-아이디가 존재하지 않을 경우
+	 */
 	
 	public int signin(String in_Username, String in_Password) {
 		String SQL = "SELECT Password from User where Username = ?"; 
@@ -42,6 +48,13 @@ public class UserDAO {
 		}
 		return -2; 
 	}
+	
+
+	/**
+	 * 회원 정보 가져오기 메소드
+	 * @param in_Username - 정보를 가져올 계정 ID
+	 * @return String[] result - 배열의 0~4번지에 각각 질문,답변,가입일,토큰(코인)이 반환됨 
+	 */	
 	
 	public String[] getuserinfo(String in_Username) {
 		String SQL = "SELECT * from User where Username = ?"; 
@@ -64,6 +77,12 @@ public class UserDAO {
 		return result2;
 	}
 	
+	/**
+	 * 회원 가입 메소드
+	 * @param User user -회원 가입 창에 입력한 아이디/비밀번호/질문/답변을 모두 가지고 있는 User 클래스
+	 * @return 회원가입의 성공 여부
+	 */		
+
 	public int signup(User user) {
 		String SQL = "insert into User values ( ?, ?, ?, ?, ?, NOW(), 0, null)";
 		try {
@@ -79,6 +98,13 @@ public class UserDAO {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 토큰(코인) 추가 메소드
+	 * @param in_Username - 토큰을 추가할 계정ID , token - 추가할 토큰의 개수
+	 * @return 1- 토큰 추가 성공시, -2- 토큰 추가 실패시 
+	 */		
+
 	
 	public int addToken(String in_Username, int token) {
 		String SQL = "UPDATE User set Token = Token + ? where Username = ? "; 
