@@ -7,7 +7,7 @@
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="<%=request.getContextPath()%>/main.jsp" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Open Lecture</span>
@@ -116,6 +116,14 @@
               <i class="nav-icon fa fa-th"></i>
               <p>
                 어떻게 이용하나요?
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-user-plus"></i>
+              <p>
+                About Us
               </p>
             </a>
           </li>
