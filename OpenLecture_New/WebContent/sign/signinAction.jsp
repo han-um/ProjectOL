@@ -13,6 +13,8 @@
 			int result = userDAO.signin(request.getParameter("username"), request.getParameter("password")); // 로그인 시도.
                 if(result==1){
                     session.setAttribute("s_username",user.getUsername());
+                    String[] result2 = userDAO.getuserinfo(request.getParameter("username")); // 계정명으로 다시 읽어서 id가 어떻게 배정되었는지 확인.
+                    session.setAttribute("s_userid",result2[4]);
                 }
 				out.print(result);
 	%>

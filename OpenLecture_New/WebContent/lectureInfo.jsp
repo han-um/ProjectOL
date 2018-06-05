@@ -3,6 +3,7 @@
 <%@ page import = "java.io.PrintWriter"%>    
 <%@ page import = "java.util.ArrayList"%>    
 <%@ page import = "lecture.Lecture" %>
+<%@ page import = "lecture.Join" %>
 <%@ page import = "lecture.Contents" %>
 <%@ page import = "lecture.Comment" %>
 <%@ page import = "lecture.LectureDAO" %>
@@ -26,7 +27,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 }
 </style>
 
-
 <body class="hold-transition sidebar-mini sidebar-collapse">
 	<div class="wrapper"  id="wrap">
 		<!-- //////////// header.jsp //////////// -->
@@ -40,9 +40,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			String lectureid = request.getParameter("id");
 			LectureDAO lectureDAO = new LectureDAO();
 			Lecture lect = lectureDAO.getData(lectureid);
+			lectureDAO.addView( Integer.parseInt(lectureid));
 			int contentNum = lect.getContentNum();
 			int commentNum = lect.getCommentNum();
 		%>
+		
+		
+<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#btnBuy').click(function() {
+        var action = $('#frmBuy').attr("action");
+            var form_data = {
+                              price: <%=lect.getPrice()%>,
+                              lectureid: <%=lect.getLectureId()%>
+            };
+            $.ajax({
+                      type: "POST",
+                      url: action,
+                      data: form_data,
+                      success: function(response) {
+                          swal({
+                              type: 'error',
+                              title: 'Oops...',
+                              text: response,
+                              footer: '<a></a>',
+              		      })
+
+                      },
+                      error: function() {
+                          swal({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'AJAX Issue!',
+                                footer: '<a href>Why do I have this issue?</a>',
+                              })
+                      }
+            });
+      });
+    });
+</script>
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -66,6 +104,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			</div>
 			<!-- /.content-header -->
 			<!-- Main content -->
+			<%
+			// 사용자가 이 강의를 가지고있는지 판별
+			ArrayList<Join> join = lectureDAO.getJoin(Integer.parseInt(request.getParameter("id")),1);
+			int result=0;
+				for(int i=0; i<join.size(); i++){
+					if(join.get(i).getUserid()== Integer.parseInt((String)session.getAttribute("s_userid"))){
+						result=1;
+					}
+				}
+			%>
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
@@ -74,8 +122,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<h1 class="m-0 text-white" id="lecture_name">
 								<%=lect.getLectureName()%>
 								<span id="lecture_view"
-									style="margin-left: 5%; font-size: 15px;"><%=lect.getView() %>
-									view</span>
+									style="margin-left: 5%; font-size: 15px;"> <i class='fa fa-eye'></i> <%=lect.getView() %>
+									view, &nbsp;&nbsp;&nbsp; 
+									
+									<i class='fa fa-user-plus'></i>
+									<% if(join.size()!=0){ %>
+									<%=join.size() %>명의 구매자</span>
+									<% }else{
+										%> 구매자가 아직 없습니다! </span>
+									<%}%>
 							</h1>
 							<br>
 							<div class="callout callout-info">
@@ -86,11 +141,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					              이 강의는 테스트를 위해 임의로 만들어졌습니다.
 					            </div>
 							<div id="price_view_wrapper">
+							
+							<%
+							if(result!=1){ // 강의를 가지고있다면, 구매와 미리보기 버튼을 띄우지 않는다.
+							%>
 								<p>
-									<a href="#" class="btn btn-warning" role="button"
-										style="color: #ffffff">강의 구매 </a> <a href="#"
-										class="btn btn-success" role="button">미리보기</a>
+								<form id="frmBuy" class="login100-form validate-form"  action="buyAction.jsp" method="post">
+									<a href="#" id="btnBuy" class="btn btn-warning" role="button"style="color: #ffffff">강의 구매 </a> 
+										<a href="#"class="btn btn-success" role="button">미리보기</a>
+								</form>
 								</p>
+							<%
+							}
+							%>
 							</div>
 							<div id="lecture_topic_wrapper">
 								<br>

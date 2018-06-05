@@ -102,7 +102,7 @@
 
 	<div class="limiter">
 		<div class="container-login100">
-           			<div class="login100-more" style="background-image: url('../dist/img/blurbackground.jpg');"></div>
+           			<div class="login100-more" style="background-color:black;"></div>
    
 			<div class="wrap-login100 p-l-90 p-r-90 p-t-100 p-b-50">
                <a href="index.jsp"> ← Login </a>

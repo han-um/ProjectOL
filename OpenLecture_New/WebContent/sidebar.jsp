@@ -98,13 +98,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/chart.jsp" class="nav-link">
                   <i class="fa fa-pie-chart nav-icon"></i>
                   <p>강의 차트</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/random.jsp" class="nav-link">
                   <i class="fa fa-random nav-icon"></i>
                   <p>랜덤 강의 보기</p>
                 </a>
