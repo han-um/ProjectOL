@@ -163,7 +163,7 @@ var Tawk_LoadStart=new Date();
                     SearchDAO searchDAO = new SearchDAO(); 
                     UserDAO userDAO = new UserDAO(); 
                     ArrayList<Lecture> lect = searchDAO.orderedLecture(1); // lect 안에 정렬된 순서대로 강의가 들어가있다.
-                    for(int i=0; i<lect.size(); i++){
+                    for(int i=0; i<lect.size()&&i<15; i++){
                     	String[] result = userDAO.getUserinfoById(lect.get(i).getUserId());
                     	String Percent = lect.get(i).getView() + "%";
                     %>
