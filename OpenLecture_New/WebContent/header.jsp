@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "lecture.Join" %>
+<%@ page import = "lecture.LectureDAO" %>
+<%@ page import = "java.util.ArrayList"%> 
 <!-- Navbar -->
   <nav class="fixed-top main-header navbar navbar-expand bg-black navbar-dark">
     <!-- Left navbar links -->
@@ -12,6 +15,8 @@
 <script>
 
 $(document).ready(function() {
+		$('#btnList1').click(function() {
+		});
 		$("#searchinput").keypress(function(event) {
         var action = $('#frmSearch').attr("action");
             var form_data = {
@@ -46,92 +51,86 @@ $(document).ready(function() {
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <% 
+      if(session.getAttribute("s_userid")!=null){
+    %>
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fa fa-comments-o"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+        <a id="btnList1" class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fa fa-shopping-cart"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <h1>Groups</h1>
+            <h1>참여중인 강의</h1>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 14 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
+                    <div class="card">
+              <!-- /.card-header -->
 
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+             
+              <% 
+              LectureDAO lectureDAO = new LectureDAO();
+              ArrayList<Join> join = null;
+              if(session.getAttribute("s_userid")!=null){
+              join = lectureDAO.getJoin(Integer.parseInt((String)session.getAttribute("s_userid")),2); 
+             	}
+             if(join!=null){
+              	for(int j=0; j<join.size(); j++){
+              		int n = join.get(j).getLectureid();
+              %>
+                  <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=join.get(j).getLectureid()%>'">
+                    <td><%out.println(lectureDAO.getData(String.valueOf(n)).getLectureName()); %></td>
+                  </tr>
+			  <%
+              	}
+              }
+			  %>
+                </table>
               </div>
+              <!-- /.card-body -->
             </div>
-            <!-- Message End -->
           </a>
-
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          <a href="#" class="dropdown-item dropdown-footer">더 보기...</a>
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fa fa-bell-o"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <i class="fa fa-pencil-square"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <h1>Notifications</h1>
-          <span class="dropdown-header">15 New Notifications</span>
+                      <h1>내가 만든 강의</h1>
           <a href="#" class="dropdown-item">
-            <i class="fa fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+                    <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+
+                  <tr>
+                    <td>강의명1</td>
+                  </tr>
+                
+                  <tr>
+                    <td>강의명2</td>
+                  </tr>
+                    
+                  <tr>
+                    <td>강의명3</td>
+                  </tr>
+                    
+                  <tr>
+                    <td>강의명4</td>
+                  </tr>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
           </a>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <a href="#" class="dropdown-item dropdown-footer">더 보기...</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-            class="fa fa-th-large"></i></a>
       </li>
+    <% } %>
     </ul>
   </nav>
   <!-- /.navbar -->

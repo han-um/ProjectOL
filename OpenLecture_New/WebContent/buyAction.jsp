@@ -30,7 +30,7 @@
     	userDAO.useToken(in_username, in_price);
     	lectureDAO.joinLecture(in_userid, in_lectureid);
     	//Join테이블에 추가
-    	out.println(request.getParameter("price")+"/"+result[3]);
+    	out.println(my_token-in_price);
     }else{
     	out.println(0);
     }

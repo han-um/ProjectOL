@@ -21,10 +21,10 @@
           if((String)session.getAttribute("s_username")==null){
           }else{
           out.println("<div class='image'> <img src='dist/img/user2-160x160.jpg' class='img-circle' alt='User Image'></div>");
-          out.println("<a href='info.jsp' class='d-block'><div class='info'><h1 style='font-size:20px'>"+(String)session.getAttribute("s_username")+"</h1><br><i class='fa fa-get-pocket'></i>토큰 :");
+          out.println("<a href='info.jsp' class='d-block'><div class='info'><h1 style='font-size:20px'>"+(String)session.getAttribute("s_username")+"</h1><br><p id='tokenout'><i class='fa fa-get-pocket'></i>토큰 :");
           UserDAO userDAO = new UserDAO();
           String[] result = userDAO.getuserinfo((String)session.getAttribute("s_username"));
-          out.println(result[3]+"</div></a>");
+          out.println(result[3]+"</div></a></p>");
           }
           %>
       </div>
@@ -59,11 +59,11 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fa fa-info nav-icon"></i>
-                  <p>프로필 / 강의 관리</p>
+                  <p>내 강의</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/userinfo.jsp" class="nav-link">
                   <i class="fa fa-info-circle nav-icon"></i>
                   <p>개인정보 수정</p>
                 </a>
@@ -86,7 +86,7 @@
             </a>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/upload.jsp" class="nav-link">
                   <i class="fa fa-plus nav-icon"></i>
                   <p>새 강의 만들기...</p>
                 </a>

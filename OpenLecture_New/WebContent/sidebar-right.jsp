@@ -5,8 +5,7 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-      <h5>My Lectures</h5>
-      <p>내가 만든 강의</p>
+      <h5>내가 만든 강의</h5>
                     <div class="card">
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">

@@ -13,7 +13,7 @@ public class LectureDAO {
 	
 	public LectureDAO() {
 		try {
-			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8";
 			String dbID = "openlecture";
 			String dbPassword = "SWTeam03";
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -180,5 +180,111 @@ public class LectureDAO {
 		return -2; 
 	}
 	
+
+	public int uploadLecture() {
+		
+		return 0; //데이터 삽입 오류
+	}
 	
+	/**
+	 * Lecture 테이블에 강의정보를 저장하는 메소드.
+	 * @param String title :  강의제목
+	 * @param int userid : 강사 id
+	 * @param String topic : 강의 주제
+	 * @param String intro : 강의 인트로
+	 * @param int contentNum : 총 강의 갯수
+	 * @return : db에 입력된 row 갯수
+	 * 		-1 : 데이터베이스 오류
+	 */
+	public int uploadLecture(String title, int userid, String topic, String intro, int contentNum) {
+		String SQL = "INSERT INTO openlecture.Lecture (lecturename, userid, topic, intro, contentnum) VALUES (?, ?, ?, ?, ?);";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, title);	//lecturename
+			pstmt.setInt(2, userid);	//userid
+			pstmt.setString(3, topic);	//topic
+			pstmt.setString(4, intro);	//intro
+			pstmt.setInt(5, contentNum);	//contentnum
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	public int uploadContent(String title, int userid, String[] urls, String[] contents) {
+		String selectSQL = "select lectureid from Lecture l where lecturename = ? and userid = ?";
+		String insertSQL = "INSERT INTO openlecture.Contents (lectureid, contentnum, videoURL, contentname) VALUES (?, ?, ?, ?);";
+		int lectureid;
+		try {
+			//lectureid 구하기
+			PreparedStatement pstmt = conn.prepareStatement(selectSQL);
+			pstmt.setString(1, title);
+			pstmt.setInt(2, userid);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				lectureid = rs.getInt("lectureid");
+			else
+				return -4;	//lectureid 없음????
+			
+			pstmt = conn.prepareStatement(insertSQL);
+			//content 정보 삽입하기
+			for(int i=0; i<contents.length; i++) {
+				pstmt.setInt(1, lectureid);		//lectureid
+				pstmt.setInt(2, i+1);				//contentnum
+				pstmt.setString(3, urls[i]);	//videoURL
+				pstmt.setString(4, contents[i]);	//contentname
+				pstmt.addBatch();
+				pstmt.clearParameters();
+			}
+			int result[] = pstmt.executeBatch();
+			for(int r:result) {
+				if (r == -3)
+					return r; //배치 실행 중 오류
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+
+	public int addComment(int lectureid, int userid, String title, String contents, int price) {
+		String SQL = "INSERT INTO openlecture.Comment (commentid, lectureid, userid, title, contents, timestamp, expectedprice) VALUES (?, ?, ?, ?, ?, NOW(), ?);";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, lectureid);
+			pstmt.setInt(3, userid);
+			pstmt.setString(4, title);
+			pstmt.setString(5, contents);
+			pstmt.setInt(6, price);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	
+	public String[] searchContent(int in_lectureid, int in_contentnum) {
+		String SQL = "SELECT * FROM `openlecture`.`Contents` where lectureid = ? AND contentnum = ?";
+		String[] result =  new String[2];
+		try {
+			pstmt = conn.prepareStatement(SQL); 
+			pstmt.setInt(1,  in_lectureid);
+			pstmt.setInt(2,  in_contentnum);
+			rs = pstmt.executeQuery(); 
+			if (rs.next()) {
+				result[0] = rs.getString("contentname");
+				result[1] = rs.getString("videoURL");
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String[] result2 =  new String[2];
+		return result2;
+	}
 }
+
+

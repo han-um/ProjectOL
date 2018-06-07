@@ -9,7 +9,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- //////////// common.jsp //////////// -->
 <%@include file="common.jsp"%>
 <!-- //////////// //////////// //////////// -->
-
+<!-- //////////// 로그인 검증 //////////// -->
+<%@include file="checkSign.jsp"%>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper" id="wrap">  
 
@@ -34,15 +35,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       url: action,
                       data: form_data,
                       success: function(response) {
-                          if(response==1){
+                        	$('#tokenout').html("<i class='fa fa-get-pocket'></i>토큰:"+response);
                             swal({
                                 type: 'success',
                                 title: '결제완료',
                                 text: '성공적으로 결제가 완료되었습니다.',
                                 footer: '<a></a>',
                 		      })
-                          }
-
                       },
                       error: function() {
                           swal({

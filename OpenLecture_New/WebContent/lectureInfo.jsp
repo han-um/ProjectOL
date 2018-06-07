@@ -16,7 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <!-- //////////// common.jsp //////////// -->
 <%@include file="common.jsp"%>
-<!-- //////////// //////////// //////////// -->
+<!-- //////////// 로그인 검증 //////////// -->
+<%@include file="checkSign.jsp"%>
 <style>
 .lecture-price {
 	color:#ffff00;
@@ -26,6 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	color:#ffff00;
 }
 </style>
+
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
 	<div class="wrapper"  id="wrap">
@@ -37,6 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- //////////// //////////// //////////// -->
 		<!-- //////////// main.jsp //////////// -->
 		<%
+			session.setAttribute("current_lectureid", request.getParameter("id"));
 			String lectureid = request.getParameter("id");
 			LectureDAO lectureDAO = new LectureDAO();
 			Lecture lect = lectureDAO.getData(lectureid);
@@ -44,7 +47,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			int contentNum = lect.getContentNum();
 			int commentNum = lect.getCommentNum();
 		%>
-		
 		
 <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
   <script>
@@ -60,13 +62,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       url: action,
                       data: form_data,
                       success: function(response) {
-                          swal({
+                    	  if(response==0){
+                    	  swal({
                               type: 'error',
                               title: 'Oops...',
-                              text: response,
-                              footer: '<a></a>',
-              		      })
-
+                              text: '토큰이 부족합니다!',
+                              footer: '<a href></a>',
+                            })
+                    	  }else{
+                    		  location.href="lectureInfo.jsp?id="+<%=request.getParameter("id")%>;
+                    	  }
                       },
                       error: function() {
                           swal({
@@ -80,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
     });
 </script>
-
+		
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -122,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<h1 class="m-0 text-white" id="lecture_name">
 								<%=lect.getLectureName()%>
 								<span id="lecture_view"
-									style="margin-left: 5%; font-size: 15px;"> <i class='fa fa-eye'></i> <%=lect.getView() %>
+									style="margin-left: 5%; font-size: 15px;"><%=lect.getView() %>
 									view, &nbsp;&nbsp;&nbsp; 
 									
 									<i class='fa fa-user-plus'></i>
@@ -140,8 +145,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					        <div class="callout callout-warning">
 					              이 강의는 테스트를 위해 임의로 만들어졌습니다.
 					            </div>
+					        <%
+							if(result==1){ // 강의를 가지고있지 않다면, 수강하기 버튼을 띄우지 않는다.
+							%>
+							<div class="callout callout-warning">
+					              현재 이 강의를 보유중입니다!
+					        </div>
+							<%}%>
+											
 							<div id="price_view_wrapper">
-							
 							<%
 							if(result!=1){ // 강의를 가지고있다면, 구매와 미리보기 버튼을 띄우지 않는다.
 							%>
@@ -183,17 +195,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<%
 										ArrayList<Contents> contentList = lectureDAO.getContentList(lectureid);
 										for(Contents c : contentList) {
-											String length = (c.getLength() / 60) + " : " + (c.getLength() % 60);
+											String length;
+											if(c.getLength() == 0)
+												length = "00:00";
+											else
+												length = (c.getLength() / 60) + " : " + (c.getLength() % 60);
 									%>
 										<tr>
 											<td id="lecture_num"><%=c.getContentnum() %>주차</td>
 											<td id="lecture_name"><%=c.getContentname() %></td>
-											<td id="viedo_time"></td>
+											<td id="viedo_time"><%=length %></td>
 											<td
 												style="width: 15%; padding-top: 6px; padding-bottom: 6px;">
-												<a href="#" class="btn btn-primary"
+											<%
+											if(result==1){ // 강의를 가지고있지 않다면, 수강하기 버튼을 띄우지 않는다.
+											%>
+													<a href="viewVideo.jsp?lecid=<%=lect.getLectureId() %>&conid=<%=c.getContentnum() %>" class="btn btn-primary"
 												style="padding-top: 6px; padding-bottom: 6px;"><span
-													style="font-size: 10px">수강하기</span></a>
+													style="font-size: 10px">
+													수강하기</span></a>
+											<%} %>
 											</td>
 										</tr>
 									<%	
@@ -243,7 +264,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 								<!-- /.card-body -->
 							</div>
-
+								<%
+													if(result==1){ // 강의를 가지고있지 않다면, 수강하기 버튼을 띄우지 않는다.
+								%>
+									<form class="form-horizontal" action="commentAction.jsp" method="POST">
+											<div class="form-group w-100">
+													<br>제목
+													<input type="text" class="form-control" id="in_Title" name="in_Title">
+													<br>가격
+													<input type="text" class="form-control w-25" id="in_Price" name="in_Price">
+													내용
+													<input type="text" class="form-control" id="in_Comment" name="in_Comment">
+											</div>
+											<div class="form-group w-100">
+												<div class="col-sm-offset-2 w-100">
+												<input type="submit" class="btn btn-success w-100" id="btnPay" value="평가하기" >
+												</div>
+											</div>
+										</form>
+								<%} %>
 							<!-- 이곳에 두번째 줄의 컨텐츠가 들어감 -->
 
 						</div>

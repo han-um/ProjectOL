@@ -7,5 +7,6 @@
 	<%
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.addToken((String)session.getAttribute("s_username"),Integer.parseInt(request.getParameter("tokennum"))); // 로그인 시도.
-				out.print(result);
+			String result2[] = userDAO.getuserinfo((String)session.getAttribute("s_username"));
+			out.print(result2[3]);
 	%>
