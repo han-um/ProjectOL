@@ -37,7 +37,7 @@ for(String url:urls){
 	String title = request.getParameter("title");
 	LectureDAO lectureDAO = new LectureDAO();
 	int resultLecture = lectureDAO.uploadLecture(title, userid, request.getParameter("topic"),
-			request.getParameter("intro"), contents.length);
+			request.getParameter("intro"), contents.length, request.getParameter("imageURL"));
 	int resultContent;
 	if (resultLecture == -1) {
 		PrintWriter script = response.getWriter();
@@ -64,7 +64,7 @@ for(String url:urls){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('강의가 등록되었습니다.')");
-			script.println("history.back()");
+			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
 	}

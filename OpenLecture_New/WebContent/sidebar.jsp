@@ -21,7 +21,7 @@
           if((String)session.getAttribute("s_username")==null){
           }else{
           out.println("<div class='image'> <img src='dist/img/user2-160x160.jpg' class='img-circle' alt='User Image'></div>");
-          out.println("<a href='info.jsp' class='d-block'><div class='info'><h1 style='font-size:20px'>"+(String)session.getAttribute("s_username")+"</h1><br><p id='tokenout'><i class='fa fa-get-pocket'></i>토큰 :");
+          out.println("<a href='#' class='d-block'><div class='info'><h1 style='font-size:20px'>"+(String)session.getAttribute("s_username")+"</h1><br><p id='tokenout'><i class='fa fa-get-pocket'></i>토큰 :");
           UserDAO userDAO = new UserDAO();
           String[] result = userDAO.getuserinfo((String)session.getAttribute("s_username"));
           out.println(result[3]+"</div></a></p>");
@@ -57,7 +57,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/myLecture.jsp" class="nav-link">
                   <i class="fa fa-info nav-icon"></i>
                   <p>내 강의</p>
                 </a>

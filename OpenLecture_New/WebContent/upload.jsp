@@ -182,12 +182,14 @@ function checkForm() {
 										<div class="custom-file" id="fileUploadWrapper" style="width:auto;">
 											<input type="file" class="custom-file-input" id="inputBackgroundImage" name="image">
 											<label class="custom-file-label" for="inputBackgroundImage">강의 정보 페이지의 배경 이미지 설정</label>
-											<input type='text' class='form-control' name='imageURL' placeholder="임시 배경입력">
+											<input type='text' class='form-control' name='imageURL22' placeholder="임시 배경입력">
+											
 										</div>
 										<div class="input-group-append">
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 									</div>
+									<input type='text' class='form-control' name='imageURL' placeholder="이미지 url 직접 입력">
 								</div>
 								<!-- 강좌 추가기능 -->
 								<div class="form-group">

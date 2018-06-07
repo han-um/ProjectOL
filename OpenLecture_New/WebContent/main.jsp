@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import = "lecture.Lecture" %>
+<%@ page import = "java.util.ArrayList"%> 
+<%@ page import = "lecture.Contents" %>
+<%@ page import = "lecture.Comment" %>
+<%@ page import = "lecture.LectureDAO" %>
+<%@ page import = "user.UserDAO" %>
+<%@ page import = "search.SearchDAO" %>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -66,11 +73,36 @@ var Tawk_LoadStart=new Date();
         <div class="row">
           <div class="col-lg-6">
               <!-- 이곳에 첫번째 줄의 컨텐츠가 들어감 -->
-              
+                            
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Featured</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">토큰이 부족하신가요?</h6>
+
+                <p class="card-text">아래 버튼을 눌러 토큰을 충전하세요!</p>
+                <a href="<%=request.getContextPath()%>/tokenpay.jsp" class="btn btn-primary">토큰 충전하기</a>
+              </div>
+            </div>
+            
+                          
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Featured</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">아무 강의나 찾아볼까요?</h6>
+
+                <p class="card-text">버튼을 눌러주세요. 임의의 강의를 찾아드립니다.</p>
+                <a href="<%=request.getContextPath()%>/random.jsp" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            
               <!-- 이미지 슬라이드형 카드박스 -->     
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Carousel</h3>
+                <h3 class="card-title">강의 미리보기</h3>
               </div>
               <div class="card-body">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -81,13 +113,13 @@ var Tawk_LoadStart=new Date();
                   </ol>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img class="d-block w-100" src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
+                      <img class="d-block w-100" src="<%=request.getContextPath()%>/upload/1.jpg" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
+                      <img class="d-block w-100" src="<%=request.getContextPath()%>/upload/2.jpg" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
+                      <img class="d-block w-100" src="<%=request.getContextPath()%>/upload/3.jpg" alt="Third slide">
                     </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -103,83 +135,15 @@ var Tawk_LoadStart=new Date();
             </div>
               
               <!-- 단순 정보형 카드박스 -->    
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">오늘의 할인</h5>
 
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
 
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-              <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">오븐을 이용한 요리</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-              
-              <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">오늘의 할인</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-              
-              <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">오늘의 할인</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-              
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">안드로이드 사용법</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>    
-            </div><!-- /.card -->
-            
           </div>
           <!-- /.col-md-6 -->
           <div class="col-lg-6">
               <!-- 이곳에 두번째 줄의 컨텐츠가 들어감 -->
-              <div class="card">
+             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Top Rated</h3>
+                <h3 class="card-title">인기 순위</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -188,75 +152,38 @@ var Tawk_LoadStart=new Date();
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover ">
                   <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Mark</th>
+                    <th class="w-50">강의명</th>
+                    <th>강사</th>
+                    <th>가격(토큰)</th>
+                    <th>인기도</th>
                   </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td> 
+                    <% 
+                    SearchDAO searchDAO = new SearchDAO(); 
+                    UserDAO userDAO = new UserDAO(); 
+                    ArrayList<Lecture> lect = searchDAO.orderedLecture(1); // lect 안에 정렬된 순서대로 강의가 들어가있다.
+                    for(int i=0; i<lect.size(); i++){
+                    	String[] result = userDAO.getUserinfoById(lect.get(i).getUserId());
+                    	String Percent = lect.get(i).getView() + "%";
+                    %>
+                  <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=lect.get(i).getLectureId()%>'">
+                    <td><B class="text-white"><% out.println(lect.get(i).getLectureName()); %></B><br><span style="font-size:12px"><% out.println(lect.get(i).getTopic()); %></span></td>
+                    <td class="align-middle"><% out.println(result[0]);%></td>
+                    <td class="align-middle"><span class="tag tag-success"><i class="fa fa-get-pocket nav-icon "></i> <%out.println(lect.get(i).getPrice()); %></span></td>
+                    <td class="align-middle"> 
                         <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
+                            <div class="progress-bar bg-primary" style="width:<%out.println(Percent);%>"></div>
                         </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Alexander Pierce</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-warning">Pending</span></td>
-                    <td> 
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>657</td>
-                    <td>Bob Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-primary">Approved</span></td>
-                    <td> 
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>175</td>
-                    <td>Mike Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-danger">Denied</span></td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                    </td>
-                  </tr>
+                   <%
+                    }
+                   %>
                 </table>
               </div>
               <!-- /.card-body -->
-            </div>
-              
-              
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
+            </div>  
             
           </div>
           <!-- /.col-md-6 -->

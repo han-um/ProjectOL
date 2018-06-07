@@ -196,8 +196,8 @@ public class LectureDAO {
 	 * @return : db에 입력된 row 갯수
 	 * 		-1 : 데이터베이스 오류
 	 */
-	public int uploadLecture(String title, int userid, String topic, String intro, int contentNum) {
-		String SQL = "INSERT INTO openlecture.Lecture (lecturename, userid, topic, intro, contentnum) VALUES (?, ?, ?, ?, ?);";
+	public int uploadLecture(String title, int userid, String topic, String intro, int contentNum, String imageURL) {
+		String SQL = "INSERT INTO openlecture.Lecture (lecturename, userid, topic, intro, contentnum, backgroundURL) VALUES (?, ?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, title);	//lecturename
@@ -205,6 +205,7 @@ public class LectureDAO {
 			pstmt.setString(3, topic);	//topic
 			pstmt.setString(4, intro);	//intro
 			pstmt.setInt(5, contentNum);	//contentnum
+			pstmt.setString(6, imageURL);	//backgroundURL
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -8,12 +8,19 @@
 <%@ page import = "lecture.Comment" %>
 <%@ page import = "lecture.LectureDAO" %>
 <%@ page import = "java.sql.ResultSet" %>
+		<%
+			String lectureid2 = request.getParameter("id");
+			LectureDAO lectureDAO2 = new LectureDAO();
+			Lecture lect2 = lectureDAO2.getData(lectureid2);
+		%>
+
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en">
+<html lang="en" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
 <!-- //////////// common.jsp //////////// -->
 <%@include file="common.jsp"%>
 <!-- //////////// 로그인 검증 //////////// -->
@@ -29,8 +36,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </style>
 
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
-	<div class="wrapper"  id="wrap">
+<body class="hold-transition sidebar-mini sidebar-collapse" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
+	<div class="wrapper"  id="wrap" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
 		<!-- //////////// header.jsp //////////// -->
 		<%@include file="header.jsp"%>
 		<!-- //////////// //////////// //////////// -->
@@ -124,6 +131,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="row">
 						<div class=class="col-12">
 							<!-- 이곳에 첫번째 줄의 컨텐츠가 들어감 -->
+							<div class="callout callout" style="background-color:rgba(0, 0, 0, 0.8);">
+							<br>
+							<br>
 							<h1 class="m-0 text-white" id="lecture_name">
 								<%=lect.getLectureName()%>
 								<span id="lecture_view"
@@ -153,8 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="callout callout-warning">
 					              현재 이 강의를 보유중입니다!
 					        </div>
-							<%}%>
-											
+							<%}%>			
 							<div id="price_view_wrapper">
 							<%
 							if(result!=1){ // 강의를 가지고있다면, 구매와 미리보기 버튼을 띄우지 않는다.
@@ -171,11 +180,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<div id="lecture_topic_wrapper">
 								<br>
+								<br>
+								<br>
+								<br>
 								<h1 class="m-0 text-white">주제</h1>
 								<p style="color: #ffffff"><%=lect.getTopic() %></p>
 								<br>
 							</div>
 							<div id="lecture_intro_wrapper">
+								<br>
 								<br>
 								<h1 class="m-0 text-white">인트로</h1>
 								<p style="color: #ffffff"><%=lect.getIntro() %></p>
@@ -199,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										for(Contents c : contentList) {
 											String length;
 											if(c.getLength() == 0)
-												length = "00:00";
+												length = "";
 											else
 												length = (c.getLength() / 60) + " : " + (c.getLength() % 60);
 									%>
@@ -286,7 +299,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</form>
 								<%} %>
 							<!-- 이곳에 두번째 줄의 컨텐츠가 들어감 -->
-
+							</div>	
 						</div>
 						<!-- /.col-md-6 -->
 					</div>

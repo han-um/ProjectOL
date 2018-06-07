@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "lecture.Join" %>
+<%@ page import = "lecture.Lecture" %>
 <%@ page import = "lecture.LectureDAO" %>
+<%@ page import = "search.SearchDAO" %>
 <%@ page import = "java.util.ArrayList"%> 
 <!-- Navbar -->
   <nav class="fixed-top main-header navbar navbar-expand bg-black navbar-dark">
@@ -13,10 +15,13 @@
     </ul>
  <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
 <script>
-
 $(document).ready(function() {
-		$('#btnList1').click(function() {
+		$('#searchinput').click(function() {
+			
 		});
+		<%
+		if(session.getAttribute("s_userid")!=null){
+		%>
 		$("#searchinput").keypress(function(event) {
         var action = $('#frmSearch').attr("action");
             var form_data = {
@@ -39,6 +44,7 @@ $(document).ready(function() {
                       }
             });
       });
+	<%}%>
 });
 </script>
     <!-- SEARCH FORM -->
@@ -74,7 +80,7 @@ $(document).ready(function() {
               join = lectureDAO.getJoin(Integer.parseInt((String)session.getAttribute("s_userid")),2); 
              	}
              if(join!=null){
-              	for(int j=0; j<join.size(); j++){
+              	for(int j=0; j<join.size()&&j<5; j++){
               		int n = join.get(j).getLectureid();
               %>
                   <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=join.get(j).getLectureid()%>'">
@@ -89,7 +95,7 @@ $(document).ready(function() {
               <!-- /.card-body -->
             </div>
           </a>
-          <a href="#" class="dropdown-item dropdown-footer">더 보기...</a>
+          <a href="<%=request.getContextPath()%>/myLecture.jsp" class="dropdown-item dropdown-footer">더 보기...</a>
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
@@ -100,32 +106,32 @@ $(document).ready(function() {
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                       <h1>내가 만든 강의</h1>
           <a href="#" class="dropdown-item">
-                    <div class="card">
+          <div class="card">
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
-
-                  <tr>
-                    <td>강의명1</td>
+				<%
+				  if(session.getAttribute("s_userid")!=null){
+				 SearchDAO searchDAO = new SearchDAO();
+				 ArrayList<Lecture> lect_r = null;
+				 lect_r = searchDAO.orderedLecture(1);
+				 for(int k=0; k<lect_r.size()&&k<5; k++){
+					 int temp1 = lect_r.get(k).getUserId();
+					 int temp2 = Integer.parseInt((String)session.getAttribute("s_userid"));
+					 if(temp1 == temp2){
+				%>
+                  <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=lect_r.get(k).getLectureId()%>'">
+                    <td><%=lect_r.get(k).getLectureName()%></td>
                   </tr>
-                
-                  <tr>
-                    <td>강의명2</td>
-                  </tr>
-                    
-                  <tr>
-                    <td>강의명3</td>
-                  </tr>
-                    
-                  <tr>
-                    <td>강의명4</td>
-                  </tr>
+                 <%		}
+					}
+				}%>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
           </a>
-          <a href="#" class="dropdown-item dropdown-footer">더 보기...</a>
+          <a href="<%=request.getContextPath()%>/myLecture.jsp" class="dropdown-item dropdown-footer">더 보기...</a>
         </div>
       </li>
       <li class="nav-item">
@@ -139,12 +145,6 @@ $(document).ready(function() {
             <div v-if="show" id="resultbox" class="card card-primary card-outline searchbox fixed-top float-right d-none d-sm-inline">
               <div class="card-header">
                 <h5 class="m-0">Search Result</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="tokenpay.jsp" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
      </transition>       
