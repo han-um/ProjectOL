@@ -11232,7 +11232,7 @@ label:not(.form-check-label):not(.custom-file-label) {
   border-radius: 0.25rem;
   padding: .5rem;
   min-height: 80px;
-  background: #ffffff;
+  background-color: black;
 }
 
 .info-box .progress {
@@ -11242,7 +11242,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .info-box .progress .progress-bar {
-  background-color: #ffffff;
+  background-color: black;
 }
 
 .info-box-icon {
