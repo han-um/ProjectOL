@@ -19,5 +19,8 @@
 			String d = request.getParameter("in_Comment");
 			int e = Integer.parseInt(request.getParameter("in_Price"));
 			lectureDAO.addComment(a,b,c,d,e);
+			
+			Lecture lect = lectureDAO.getData((String)session.getAttribute("current_lectureid"));
+			lectureDAO.setPrice(e, lect.getPrice(),lect.getContentNum(), a);
 			response.sendRedirect("lectureInfo.jsp?id="+session.getAttribute("current_lectureid"));
 	%>

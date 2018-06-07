@@ -285,6 +285,21 @@ public class LectureDAO {
 		String[] result2 =  new String[2];
 		return result2;
 	}
+	
+	public int setPrice(int set_price, int now_price, int buy_num, int lectureid) {
+		String SQL = "UPDATE `openlecture`.`Lecture` SET price = ? where lectureid = ? "; 
+		try {
+			pstmt = conn.prepareStatement(SQL); 
+			set_price = (now_price + set_price) / (buy_num+1);
+			pstmt.setInt(1,  set_price);
+			pstmt.setInt(2,  lectureid);
+			pstmt.executeUpdate(); 
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -2; 
 }
 
+}
 

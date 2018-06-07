@@ -31,8 +31,8 @@ for(String url:urls){
 <hr>
 <%=contents.length %><hr>
 <%
-	session.setAttribute("s_userid", 1); //테스트를 위해 임의로 userid 지정.
-	int userid = (int) session.getAttribute("s_userid");
+	//session.setAttribute("s_userid", 1); //테스트를 위해 임의로 userid 지정.
+	int userid = Integer.parseInt((String)session.getAttribute("s_userid"));
 	out.println(userid);
 	String title = request.getParameter("title");
 	LectureDAO lectureDAO = new LectureDAO();
@@ -64,7 +64,7 @@ for(String url:urls){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('강의가 등록되었습니다.')");
-			script.println("location.href = 'main.jsp'");
+			script.println("history.back()");
 			script.println("</script>");
 		}
 	}

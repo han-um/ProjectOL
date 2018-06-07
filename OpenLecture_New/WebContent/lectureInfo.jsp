@@ -131,7 +131,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									view, &nbsp;&nbsp;&nbsp; 
 									
 									<i class='fa fa-user-plus'></i>
-									<% if(join.size()!=0){ %>
+									<% 
+									session.setAttribute("buy_num",join.size());
+									if(join.size()!=0){ %>
 									<%=join.size() %>명의 구매자</span>
 									<% }else{
 										%> 구매자가 아직 없습니다! </span>
