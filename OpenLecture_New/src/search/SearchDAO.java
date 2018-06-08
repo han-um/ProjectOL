@@ -16,7 +16,7 @@ public class SearchDAO {
 	
 	public SearchDAO() {
 		try {
-			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8";
 			String dbID = "openlecture";
 			String dbPassword = "SWTeam03";
 			Class.forName("com.mysql.cj.jdbc.Driver");

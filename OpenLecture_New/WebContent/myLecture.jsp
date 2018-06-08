@@ -103,10 +103,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				 SearchDAO searchDAO = new SearchDAO();
 				 ArrayList<Lecture> lect_r = null;
 				 lect_r = searchDAO.orderedLecture(1);
-				 for(int k=0; k<lect_r.size()&&k<5; k++){
+				 int count = 0;
+				 for(int k=0; k<lect_r.size(); k++){
 					 int temp1 = lect_r.get(k).getUserId();
 					 int temp2 = Integer.parseInt((String)session.getAttribute("s_userid"));
 					 if(temp1 == temp2){
+						 count++;
 				%>
                   <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=lect_r.get(k).getLectureId()%>'">
                     <td><%=lect_r.get(k).getLectureName()%></td>

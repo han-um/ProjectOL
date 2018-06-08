@@ -251,6 +251,7 @@ public class LectureDAO {
 
 	public int addComment(int lectureid, int userid, String title, String contents, int price) {
 		String SQL = "INSERT INTO openlecture.Comment (commentid, lectureid, userid, title, contents, timestamp, expectedprice) VALUES (?, ?, ?, ?, ?, NOW(), ?);";
+		String IncreaseQ = "UPDATE openlecture.Lecture SET commentnum = commentnum + 1 WHERE lectureid = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, 0);
@@ -259,7 +260,13 @@ public class LectureDAO {
 			pstmt.setString(4, title);
 			pstmt.setString(5, contents);
 			pstmt.setInt(6, price);
+			pstmt.executeUpdate();
+			
+			//Lecture 테이블에 commentNum 증가시키기
+			pstmt = conn.prepareStatement(IncreaseQ);
+			pstmt.setInt(1, lectureid);
 			return pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -291,7 +298,7 @@ public class LectureDAO {
 		String SQL = "UPDATE `openlecture`.`Lecture` SET price = ? where lectureid = ? "; 
 		try {
 			pstmt = conn.prepareStatement(SQL); 
-			set_price = (now_price + set_price) / (buy_num+1);
+			set_price = (now_price*(buy_num-1) + set_price) / (buy_num);
 			pstmt.setInt(1,  set_price);
 			pstmt.setInt(2,  lectureid);
 			pstmt.executeUpdate(); 

@@ -114,11 +114,13 @@ $(document).ready(function() {
 				  if(session.getAttribute("s_userid")!=null){
 				 SearchDAO searchDAO = new SearchDAO();
 				 ArrayList<Lecture> lect_r = null;
+				 int count = 0;
 				 lect_r = searchDAO.orderedLecture(1);
-				 for(int k=0; k<lect_r.size()&&k<5; k++){
+				 for(int k=0; k<lect_r.size()&&count<5; k++){
 					 int temp1 = lect_r.get(k).getUserId();
 					 int temp2 = Integer.parseInt((String)session.getAttribute("s_userid"));
 					 if(temp1 == temp2){
+						 count++;
 				%>
                   <tr onclick="location.href='<%=request.getContextPath()%>/lectureInfo.jsp?id=<%=lect_r.get(k).getLectureId()%>'">
                     <td><%=lect_r.get(k).getLectureName()%></td>

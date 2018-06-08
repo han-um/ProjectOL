@@ -12,6 +12,11 @@
 			String lectureid2 = request.getParameter("id");
 			LectureDAO lectureDAO2 = new LectureDAO();
 			Lecture lect2 = lectureDAO2.getData(lectureid2);
+			String backgroundURL = "";
+			if(!lect2.getBackgroundURL().equals(""))
+				backgroundURL = lect2.getBackgroundURL();
+			else
+				backgroundURL = "dist/img/blurbackground.jpg";
 		%>
 
 
@@ -20,7 +25,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
+<html lang="en" style="background-image:url('<%=backgroundURL%>')">
 <!-- //////////// common.jsp //////////// -->
 <%@include file="common.jsp"%>
 <!-- //////////// 로그인 검증 //////////// -->
@@ -35,9 +40,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 }
 </style>
 
-
-<body class="hold-transition sidebar-mini sidebar-collapse" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
-	<div class="wrapper"  id="wrap" style="background-image:url('<%=lect2.getBackgroundURL()%>')">
+<body class="hold-transition sidebar-mini sidebar-collapse" style="background-image:url('<%=backgroundURL%>')">
+	<div class="wrapper"  id="wrap" style="background-image:url('<%=backgroundURL%>')">
 		<!-- //////////// header.jsp //////////// -->
 		<%@include file="header.jsp"%>
 		<!-- //////////// //////////// //////////// -->
@@ -62,7 +66,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         var action = $('#frmBuy').attr("action");
             var form_data = {
                               price: <%=lect.getPrice()%>,
-                              lectureid: <%=lect.getLectureId()%>
+                              lectureid: <%=lect.getLectureId()%>,
+                              teachername: '<%=lect.getUserName() %>'
             };
             $.ajax({
                       type: "POST",
@@ -117,14 +122,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.content-header -->
 			<!-- Main content -->
 			<%
+			
+			
 			// 사용자가 이 강의를 가지고있는지 판별
 			ArrayList<Join> join = lectureDAO.getJoin(Integer.parseInt(request.getParameter("id")),1);
 			int result=0;
 				for(int i=0; i<join.size(); i++){
+					if(session.getAttribute("s_username")==null){
+						%>
+						<script>location.href = "sign/index.jsp"; </script>
+						<%
+					} else {
 					if(join.get(i).getUserid()== Integer.parseInt((String)session.getAttribute("s_userid"))){
 						result=1;
 					}
+					}
 				}
+			
 			%>
 			<div class="content">
 				<div class="container-fluid">

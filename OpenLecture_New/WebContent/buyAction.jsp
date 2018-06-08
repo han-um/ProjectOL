@@ -25,10 +25,12 @@
     int in_userid =  Integer.parseInt((String)session.getAttribute("s_userid"));
     String in_username = (String)session.getAttribute("s_username");
     int in_lectureid = Integer.parseInt(request.getParameter("lectureid"));
+    String in_teachername = (String)request.getParameter("teachername");
     
     if(in_price <= my_token ){
     	userDAO.useToken(in_username, in_price);
     	lectureDAO.joinLecture(in_userid, in_lectureid);
+    	userDAO.addToken(in_teachername, in_price);
     	//Join테이블에 추가
     	out.println(my_token-in_price);
     }else{

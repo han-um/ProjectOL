@@ -21,6 +21,6 @@
 			lectureDAO.addComment(a,b,c,d,e);
 			
 			Lecture lect = lectureDAO.getData((String)session.getAttribute("current_lectureid"));
-			lectureDAO.setPrice(e, lect.getPrice(),lect.getContentNum(), a);
+			lectureDAO.setPrice(e, lect.getPrice(),lect.getCommentNum(), a);
 			response.sendRedirect("lectureInfo.jsp?id="+session.getAttribute("current_lectureid"));
 	%>

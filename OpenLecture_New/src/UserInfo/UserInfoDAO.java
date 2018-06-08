@@ -15,7 +15,7 @@ public class UserInfoDAO {
 	
 	public UserInfoDAO() {
 		try {
-			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://openlecture.cea7vfme2wkn.ap-northeast-2.rds.amazonaws.com:3306/openlecture?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8";
 			String dbID = "openlecture";
 			String dbPassword = "SWTeam03";
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -26,9 +26,9 @@ public class UserInfoDAO {
 	}
 
 	/**
-	 * È¸¿ø Á¤º¸ °¡Á®¿À±â ¸Þ¼Òµå
-	 * @param in_Username - Á¤º¸¸¦ °¡Á®¿Ã °èÁ¤ ID
-	 * @return String[] result - ¹è¿­ÀÇ 0~4¹øÁö¿¡ °¢°¢ Áú¹®,´äº¯,°¡ÀÔÀÏ,ÅäÅ«(ÄÚÀÎ)ÀÌ ¹ÝÈ¯µÊ 
+	 * È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
+	 * @param in_Username - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ID
+	 * @return String[] result - ï¿½è¿­ï¿½ï¿½ 0~4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½äº¯,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Å«(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ 
 	 */	
 	
 	public String[] getuserinfo(String in_Username) {
@@ -54,9 +54,9 @@ public class UserInfoDAO {
 	}
 	
 	/**
-	 * È¸¿ø Á¤º¸ ¼öÁ¤ ¸Þ¼Òµå.
-	 * @param in_Username - ·Î±×ÀÎ ÇÑ È¸¿ø ¾ÆÀÌµð, userinfo - º¯°æÇÒ À¯Àú Á¤º¸
-	 * @return int result - º¯°æµÈ ¼Ó¼º ¼ö
+	 * È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½.
+	 * @param in_Username - ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½, userinfo - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	 * @return int result - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½
 	 */
 	
 	public int changeuserinfo(UserInfo userinfo, String in_Username) {
